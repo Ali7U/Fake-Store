@@ -1,0 +1,60 @@
+<div
+  class="w-12 h-5rem flex align-items-center justify-content-between sticky top-0 bg-primary-reverse z-1"
+>
+  <a
+    routerLink=""
+    class="flex align-items-center no-underline text-color gap-2"
+  >
+    <i class="pi pi-shop text-4xl"></i>
+    <span class="text-2xl sm:text-4xl">Fake Store</span>
+  </a>
+
+  <div
+    class="flex w-6 md:w-8 justify-content-end lg:justify-content-around align-items-center"
+  >
+    <p-menubar [model]="items" class="no-wrap-menubar">
+      <ng-template #item let-item>
+        <a [routerLink]="item.route" class="p-menubar-item-link">
+          <span class="ml-2">{{ item.label }}</span>
+          <span class=" ml-2 text-xs {{ item.icon }}"></span>
+        </a>
+      </ng-template>
+      <div class="flex gap-2">
+        <button
+          pButton
+          (click)="toggleDarkMode()"
+          [outlined]="true"
+          [icon]="isDarkMode() ? 'pi pi-moon' : 'pi pi-sun'"
+          [ngStyle]="{ color: isDarkMode() ? 'white' : 'black' }"
+        ></button>
+
+        <button
+          pButton
+          icon="pi pi-shopping-cart"
+          class="p-button-outlined relative"
+          (click)="openDialog('Cart')"
+        >
+          @if (((itemCount$ | async) || 0) > 0) {
+          <p-badge
+            [value]="(itemCount$ | async) || 0"
+            severity="danger"
+          ></p-badge>
+          }
+        </button>
+      </div>
+    </p-menubar>
+  </div>
+</div>
+
+<app-dialog
+  [header]="cartVisible ? 'Shopping Cart' : 'Add Category'"
+  [visible]="cartVisible || categoryVisible"
+  [isCart]="cartVisible"
+  [isCategory]="categoryVisible"
+  [cartItems]="(cartService.cartItems$ | async) || []"
+  [total]="(cartTotal$ | async) || 0"
+  (close)="cartVisible = false; categoryVisible = false"
+  (removeItem)="cartService.removeFromCart($event)"
+  (updateQuantity)="cartService.updateQuantity($event.id, $event.quantity)"
+  (clearCart)="cartService.clearCart()"
+></app-dialog>

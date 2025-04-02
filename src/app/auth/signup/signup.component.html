@@ -1,0 +1,34 @@
+<!-- <form
+  [formGroup]="signupForm"
+  class="w-12 h-screen flex justify-content-center align-items-center"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="flex flex-column w-6 h-30rem justify-content-evenly">
+    <app-input
+      [control]="getControl('name')"
+      inputType="text"
+      label="Name"
+    ></app-input>
+    <app-input
+      [control]="getControl('email')"
+      inputType="email"
+      label="Email"
+    ></app-input>
+    <app-input
+      [control]="getControl('password')"
+      inputType="password"
+      label="Password"
+    ></app-input>
+    <app-input
+      [control]="getControl('avatar')"
+      inputType="text"
+      label="Avatar Link"
+    ></app-input>
+    <button type="submit" pButton>Sign Up</button>
+  </div>
+</form> -->
+
+<app-user-form
+  buttonName="Sign Up"
+  (userFormSubmit)="onSubmit($event)"
+></app-user-form>

@@ -1,0 +1,17 @@
+<div class="p-3">
+  <h1 class="text-center mb-4">About Me</h1>
+  @for (section of aboutMe; track section.title) {
+  <div class="mb-5">
+    <h2 class="text-primary mb-2 border-bottom-1">{{ section.title }}</h2>
+    @if (isDescriptionArray(section.description)) {
+    <ul class="list-disc pl-5">
+      @for (item of section.description; track item) {
+      <li class="mb-2">{{ item }}</li>
+      }
+    </ul>
+    } @else {
+    <p class="line-height-3 " [innerHTML]="section.description"></p>
+    }
+  </div>
+  }
+</div>

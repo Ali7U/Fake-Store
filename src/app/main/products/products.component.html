@@ -1,0 +1,128 @@
+<div
+  class="flex flex-column-reverse align-items-center sm:align-items-start sm:flex-row"
+>
+  <div class="flex flex-wrap justify-content-around w-12 gap-3 pt-4">
+    @if (loading) {
+    <div class="flex flex-wrap justify-content-center gap-3 w-12">
+      @for (i of [1, 2, 3, 4]; track $index) {
+      <div
+        class="w-16rem h-30rem flex flex-column justify-content-between border-1 border-round-xl border-200 p-3 shadow-2"
+      >
+        <p-skeleton
+          width="100%"
+          height="200px"
+          class="border-round-xl"
+        ></p-skeleton>
+        <p-skeleton width="80%" height="20px" class="mt-3"></p-skeleton>
+        <p-skeleton width="50%" height="15px" class="mt-2"></p-skeleton>
+        <div class="flex justify-content-between mt-2">
+          <p-skeleton width="60px" height="15px"></p-skeleton>
+          <p-skeleton width="20px" height="20px"></p-skeleton>
+        </div>
+        <p-skeleton width="100%" height="20px" class="mt-2"></p-skeleton>
+        <p-skeleton width="100%" height="15px" class="mt-2"></p-skeleton>
+        <div class="flex justify-content-around mt-3">
+          <p-skeleton
+            width="40px"
+            height="40px"
+            class="border-circle"
+          ></p-skeleton>
+          <p-skeleton
+            width="40px"
+            height="40px"
+            class="border-circle"
+          ></p-skeleton>
+        </div>
+      </div>
+      }
+    </div>
+    } @else if (products.length > 0) { @for (product of products; track
+    product.id) {
+    <div
+      class="w-16rem h-30rem flex flex-column justify-content-between border-1 border-round-xl border-200"
+    >
+      <div class="img">
+        <img [src]="product.images[0]" class="w-12 h-15rem border-round-xl" />
+      </div>
+      <div class="flex flex-column justify-content-between pb-2 px-2">
+        <div
+          class="title white-space-nowrap overflow-hidden text-overflow-clip"
+          [pTooltip]="product.title"
+          tooltipPosition="bottom"
+        >
+          <h3>{{ product.title }}</h3>
+        </div>
+        <div class="flex justify-content-around">
+          <span>{{ product?.category?.name }}</span>
+          <i
+            class="pi pi-info-circle cursor-pointer"
+            (click)="showDescription(product)"
+          ></i>
+        </div>
+        <p>{{ product.price | currency }}</p>
+        <p>{{ product.slug }}</p>
+        <div class="flex justify-content-around">
+          <button
+            pButton
+            (click)="addToCart(product)"
+            icon="pi pi-shopping-cart"
+            [outlined]="true"
+          ></button>
+          <button
+            pButton
+            (click)="updateProduct(product.id)"
+            icon="pi pi-pencil"
+            [outlined]="true"
+          ></button>
+        </div>
+      </div>
+    </div>
+    } } @else {
+    <p class="w-12 text-center">No products found.</p>
+    }
+  </div>
+
+  <!-- Category Sidebar -->
+  <div class="sm:hidden align-self-start py-5 sticky custom-top2 w-12">
+    <p-dropdown
+      [options]="categories"
+      [(ngModel)]="selectedCategoryId"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Select a Category"
+      class="w-12"
+      (onChange)="onCategoryChange($event)"
+    />
+  </div>
+  <div
+    class="hidden sm:flex flex-column sm:w-3 border-1 h-full py-1 px-3 border-round-xl border-200 sticky custom-top"
+  >
+    <h3>Categories:</h3>
+    <div class="flex flex-wrap sm:flex-column">
+      @for (category of categories; track category.id) {
+      <p
+        [routerLink]="['/']"
+        [queryParams]="{ categoryId: category.id }"
+        (click)="scrollToTop()"
+        [ngClass]="{
+          'border-left-2 border-300 p-1 surface-50 w-12':
+            selectedCategoryId === category.id
+        }"
+        class="cursor-pointer w-6"
+      >
+        {{ category.name }}
+      </p>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Dialog -->
+<app-dialog
+  [description]="description"
+  [visible]="visible"
+  (close)="closeDialog()"
+  [product]="product"
+  header="Description"
+  [isCart]="false"
+></app-dialog>

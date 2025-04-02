@@ -1,0 +1,110 @@
+@if (isCategoryList) {
+
+<p-dropdown
+  [options]="categories"
+  [ngModel]="control.value"
+  optionLabel="name"
+  optionValue="id"
+  (onChange)="getCategory($event)"
+  styleClass="w-12"
+  placeholder="Select a Category"
+></p-dropdown>
+} @if (!isArray && !isCategoryList) {
+<p-floatlabel variant="on">
+  <input
+    pInputText
+    id="on_label"
+    [type]="inputType"
+    [formControl]="control"
+    autocomplete="off"
+    class="w-12"
+  />
+  <label for="on_label">{{ label }}</label> </p-floatlabel
+>} @if (isArray) {
+<div [formGroup]="parentForm">
+  <div formArrayName="images" class="flex flex-column gap-3">
+    @for (control of getFormControls(); track $index) {
+    <p-input-group>
+      <p-floatlabel variant="on">
+        <input
+          pInputText
+          id="on_label_{{ $index }}"
+          [type]="inputType"
+          autocomplete="off"
+          class="w-12"
+          [formControl]="control"
+        />
+        <label for="on_label_{{ $index }}">{{ label }} {{ $index + 1 }}</label>
+      </p-floatlabel>
+      @if($index > 0) {
+      <button
+        pButton
+        (click)="removeItem($index)"
+        icon="pi pi-trash"
+        severity="danger"
+        styleClass="custom-icon-color"
+      ></button>
+      }
+    </p-input-group>
+    <div class="relative text-sm text-red-500 pl-3">
+      @if (control.errors?.['pattern']) {
+      <p class="text-sm absolute m-0 top-50">
+        Enter a valid image URL (png, jpg, etc.)
+      </p>
+      } @if (control.touched && control.errors?.['required']) {
+      <p class="text-sm absolute m-0 top-50">Value is required</p>
+
+      }
+    </div>
+    }
+    <!-- <div class="flex justify-content-end mt-3">
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Choose Images"
+        [multiple]="true"
+        accept="image/*"
+        maxFileSize="10000000"
+        (onSelect)="onFileSelect($event)"
+        [auto]="true"
+        [customUpload]="true"
+        styleClass="custom-icon-color"
+      ></p-fileUpload>
+    </div> -->
+  </div>
+  <div class="flex justify-content-end">
+    <button
+      pButton
+      (click)="addItem()"
+      severity="success"
+      styleClass="custom-icon-color"
+    >
+      Add Image
+    </button>
+  </div>
+</div>
+}
+
+<!-- errors -->
+@if (showErrors()) {
+<div class="text-sm text-red-500 pl-3 absolute">
+  @if (control.errors?.['required']) {
+  <p>Value is required</p>
+  } @if (control.errors?.['email']) {
+  <p>Enter a valid email</p>
+  } @if (control.errors?.['pattern']) { @if (label === 'Avatar Link' || label
+  === 'Image') {
+  <p class="text-sm">Enter a valid image URL (png, jpg, etc.)</p>
+  } @else {
+  <p>Invalid format</p>
+  } } @if (control.errors?.['minlength']) {
+  <p class="text-sm">
+    Value must be at least
+    {{ control.errors?.["minlength"].requiredLength }} characters
+  </p>
+  }
+  <!-- @if ( !control.hasError('isAvailable') && control.value && control.invalid
+  && !control.hasError('email') ) {
+  <p>The email is already taken</p>
+  } -->
+</div>
+}

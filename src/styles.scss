@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+* {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.p-button .pi {
+  color: var(--icon-color, black) !important;
+}
+// Define theme variables
+:root {
+  --text-color-light: #1f2937; // Light mode text color
+  --text-color-dark: #f9fafb; // Dark mode text color
+  --icon-color-light: #4b5563; // Light mode icon color
+  --icon-color-dark: #d1d5db; // Dark mode icon color
+  --transition-time: 0.3s; // Transition duration
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.dark button.p-button .p-button-icon {
+  color: white !important; /* Ensure it updates in dark mode */
+}
+
+.text-color {
+  color: var(--text-color); // Ensure this variable changes in dark mode
+}
+
+.custom-icon-color .p-button-icon {
+  color: blue !important;
+}

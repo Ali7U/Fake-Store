@@ -1,0 +1,18 @@
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <app-input
+    [control]="getControl('name')"
+    inputType="text"
+    label="Category Name"
+  ></app-input>
+  <app-input
+    [control]="getControl('image')"
+    inputType="url"
+    label="Image"
+  ></app-input>
+  <button
+    pButton
+    type="submit"
+    label="Submit"
+    [disabled]="categoryForm.invalid"
+  ></button>
+</form>

@@ -1,0 +1,21 @@
+.icon-color {
+    color: var(--icon-color);
+    transition: color var(--transition-time) ease;
+  }
+
+  @media screen and (min-width:961px){
+    :host ::ng-deep {
+    .no-wrap-menubar {
+      .p-menubar-root-list {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto; 
+      }
+  
+      .p-menuitem {
+        white-space: nowrap; 
+      }
+    }
+  }
+  }
+  

@@ -1,0 +1,42 @@
+<form
+  [formGroup]="productForm"
+  (ngSubmit)="onSubmit()"
+  class="w-12 h-screen flex align-items-center justify-content-center"
+>
+  <div class="flex justify-content-around flex-column heighet w-6">
+    <app-input
+      [control]="getControl('title')"
+      label="Title"
+      inputType="text"
+    ></app-input>
+    <app-input
+      [control]="getControl('description')"
+      label="Descrisption"
+      inputType="text"
+    ></app-input>
+    <app-input
+      [control]="getControl('categoryId')"
+      label="Category"
+      [isCategoryList]="true"
+      inputType="number"
+      [categories]="categories"
+      (selectCategory)="updateCategoryId($event)"
+    ></app-input>
+    <app-input
+      [control]="getControl('price')"
+      label="Price"
+      inputType="number"
+    ></app-input>
+
+    <app-input
+      [parentForm]="productForm"
+      label="Image URL"
+      inputType="text"
+      [isArray]="true"
+    ></app-input>
+
+    <button type="submit" pButton [disabled]="productForm.invalid">
+      {{ title }}
+    </button>
+  </div>
+</form>

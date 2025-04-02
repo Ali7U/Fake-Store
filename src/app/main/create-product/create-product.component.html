@@ -1,0 +1,76 @@
+<!-- <form
+  [formGroup]="createForm"
+  (ngSubmit)="onSubmit()"
+  class="w-12 h-screen flex align-items-center justify-content-center"
+>
+  <div class="flex justify-content-around flex-column h-30rem w-6">
+    <app-input
+      [control]="getControl('title')"
+      label="Title"
+      inputType="text"
+    ></app-input>
+    <app-input
+      [control]="getControl('description')"
+      label="Descrisption"
+      inputType="text"
+    ></app-input>
+    <app-input
+      [control]="getControl('categoryId')"
+      label="Category"
+      [isCategory]="true"
+      inputType="number"
+      [categories]="categories"
+      (selectCategory)="updateCategoryId($event)"
+    ></app-input>
+    <app-input
+      [control]="getControl('price')"
+      label="Price"
+      inputType="number"
+    ></app-input>
+    <app-input
+    [control]="imagesArray"
+    label="Image URL"
+    inputType="text"
+    [isArray]="true"
+  ></app-input>
+
+    <div formArrayName="images">
+      @for (control of imagesArray.controls; track $index) {
+      <div class="flex">
+        <p-inputgroup>
+          <input
+            pInputText
+            [formControlName]="$index"
+            class="w-12"
+            placeholder="Add Image Link {{ $index + 1 }}"
+          />
+          @if ($index > 0) {          <button
+            pButton
+            type="button"
+            (click)="removeImageField($index)"
+            icon="pi pi-trash"
+            severity="danger"
+          ></button>}
+
+        </p-inputgroup>
+      </div>
+      @if (control.invalid && (control.dirty || control.touched)) { @if
+      (control.errors?.['required']) {
+      <p class="text-sm pl-3 absolute text-red-500">This field is required.</p>
+      } @if (control.errors?.['pattern']) {
+      <p class="text-sm pl-3 absolute text-red-500">
+        Please enter a valid URL.
+      </p>
+      } } }
+
+      <div class="flex w-12 justify-content-end">
+        <button pButton type="button" (click)="addImage()">Add Image</button>
+      </div>
+    </div>
+    <button type="submit" pButton>Create</button>
+  </div>
+</form>
+-->
+
+<app-product-form (productSubmit)="onSubmit($event)" [getProductForm]="productForm" title="Create"></app-product-form>
+<p-toast />

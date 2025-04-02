@@ -1,0 +1,40 @@
+<form
+  [formGroup]="userForm"
+  class="w-12 h-screen flex justify-content-center align-items-center"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="flex flex-column w-6 h-30rem justify-content-evenly">
+    @if (!isSignIn) {
+    <app-input
+      [control]="getControl('name')"
+      inputType="text"
+      label="Name"
+    ></app-input>
+
+    <app-input
+      [control]="getControl('avatar')"
+      inputType="text"
+      label="Avatar Link"
+    ></app-input
+    >}
+
+    <app-input
+      [control]="getControl('email') "
+      inputType="email"
+      label="Email"
+    ></app-input>
+
+    <app-input
+      [control]="getControl('password')"
+      [inputType]="isProfile ? 'text' : 'password'"
+      label="Password"
+    ></app-input>
+    <div class="relalative">
+      @if (userForm.errors?.['credentials']) {
+      <p class="pl-3 text-red-500 text-sm">email or password incurrect</p>
+      }
+    </div>
+
+    <button type="submit" pButton [disabled]="isSignIn? false : userForm.invalid">{{ buttonName }}</button>
+  </div>
+</form>
