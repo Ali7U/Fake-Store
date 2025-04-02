@@ -3,7 +3,7 @@
   class="w-12 h-screen flex justify-content-center align-items-center"
   (ngSubmit)="onSubmit()"
 >
-  <div class="flex flex-column w-6 h-30rem justify-content-evenly">
+  <div class="flex flex-column w-4 h-30rem justify-content-evenly">
     @if (!isSignIn) {
     <app-input
       [control]="getControl('name')"
@@ -36,5 +36,10 @@
     </div>
 
     <button type="submit" pButton [disabled]="isSignIn? false : userForm.invalid">{{ buttonName }}</button>
+    @if (isSignIn) {
+        <a routerLink="/signup" class="no-underline text-color">Doesn't have an account?</a>
+    } @else {
+        <a routerLink="/signin" class="no-underline text-color">Already have an account?</a>
+    }
   </div>
 </form>

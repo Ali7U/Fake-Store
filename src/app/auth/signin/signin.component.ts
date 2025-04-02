@@ -21,7 +21,6 @@ import { UserFormComponent } from '../user-form/user-form.component';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    InputComponent,
     UserFormComponent,
   ],
   templateUrl: './signin.component.html',

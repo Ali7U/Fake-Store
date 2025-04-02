@@ -18,11 +18,12 @@ import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../../service/auth.service';
 import { UniqueEmail } from '../validators/unique-email';
 import { login, User } from '../user';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent, ButtonModule],
+  imports: [ReactiveFormsModule, InputComponent, ButtonModule, RouterLink],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
 })
