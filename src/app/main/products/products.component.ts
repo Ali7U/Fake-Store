@@ -107,7 +107,7 @@ export class ProductsComponent implements OnInit {
 
   updateProduct(id: number) {
     this.isUpdate = true;
-    this.router.navigate(['/products/update/', id]);
+    this.router.navigate(['/update/', id]);
   }
 
   showCartDialog() {
