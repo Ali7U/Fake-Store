@@ -33,7 +33,7 @@ export class SignupComponent {
 
   onSubmit(user: User) {
     this.authService.addUser(user).subscribe(() => {
-      this.router.navigate(['/'], { queryParams: { email: user.email } });
+      this.router.navigate(['/signin'], { queryParams: { email: user.email } });
     });
   }
 }
