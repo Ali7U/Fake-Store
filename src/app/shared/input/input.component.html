@@ -23,7 +23,7 @@
 >} @if (isArray) {
 <div [formGroup]="parentForm">
   <div formArrayName="images" class="flex flex-column gap-3">
-    @for (control of getFormControls(); track $index) {
+    @for (control of getFormControls(); track $index; let isLast = $last) {
     <p-input-group>
       <p-floatlabel variant="on">
         <input
@@ -46,17 +46,21 @@
       ></button>
       }
     </p-input-group>
-    <div class="relative text-sm text-red-500 pl-3">
+    @if (showErrors(control)) {
+    <div
+      class="relative text-sm text-red-500 pl-3 {{ isLast ? '' : 'h-1rem' }}"
+    >
       @if (control.errors?.['pattern']) {
-      <p class="text-sm absolute m-0 top-50">
+      <p class="text-sm ruby m-0 top-50">
         Enter a valid image URL (png, jpg, etc.)
       </p>
-      } @if (control.touched && control.errors?.['required']) {
-      <p class="text-sm absolute m-0 top-50">Value is required</p>
-
+      } @if (control.errors?.['required']) {
+      <p class="text-sm  {{ !isLast ? '' : 'absolute' }} m-0 top-50">
+        Value is required
+      </p>
       }
     </div>
-    }
+    } }
     <!-- <div class="flex justify-content-end mt-3">
       <p-fileUpload
         mode="basic"

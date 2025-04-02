@@ -23,7 +23,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { MessageService } from 'primeng/api';
 
-
 @Component({
   selector: 'app-input',
   standalone: true,
@@ -105,11 +104,12 @@ export class InputComponent {
     this.selectCategory.emit(option.value);
   }
 
-  showErrors() {
-    if (!this.control) {
+  showErrors(imgControl?: FormControl): Boolean {
+    const control = this.control || imgControl;
+    if (!control) {
       return false;
     }
-    const { dirty, touched, errors } = this.control;
-    return dirty && touched && errors;
+    const { dirty, touched, errors } = control;
+    return dirty || touched && !errors;
   }
 }

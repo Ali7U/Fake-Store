@@ -24,6 +24,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { Product } from '../interfaces/products';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-product-form',
@@ -35,6 +36,7 @@ import { Product } from '../interfaces/products';
     ButtonModule,
     InputTextModule,
     ToastModule,
+    NgStyle
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss',
@@ -84,7 +86,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
         images: this.getProductForm?.images || [],
       });
 
-      // this.imagesArray.clear();
 
       this.getProductForm?.images.forEach((image) => {
         this.imagesArray.push(

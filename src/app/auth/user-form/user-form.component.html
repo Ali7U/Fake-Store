@@ -3,7 +3,7 @@
   class="w-12 h-screen flex justify-content-center align-items-center"
   (ngSubmit)="onSubmit()"
 >
-  <div class="flex flex-column w-4 h-30rem justify-content-evenly">
+  <div class="flex flex-column w-9 md:w-4 h-30rem justify-content-evenly">
     @if (!isSignIn) {
     <app-input
       [control]="getControl('name')"
