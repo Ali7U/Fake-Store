@@ -56,7 +56,7 @@ export class UpdateProductComponent implements OnInit {
     }
 
     this.productsService.updateProduct(this.id, product).subscribe(() => {
-      this.router.navigateByUrl('products');
+      this.router.navigateByUrl('/');
       this.messageService.add({
         severity: 'success',
         summary: 'Success',

@@ -69,7 +69,7 @@ export class CreateProductComponent implements OnInit {
     }
 
     this.productService.createProduct(product).subscribe(() => {
-      this.router.navigateByUrl('/products');
+      this.router.navigateByUrl('/');
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
