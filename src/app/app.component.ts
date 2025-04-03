@@ -19,6 +19,7 @@ import { AuthService } from './service/auth.service';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
+import { FooterComponent } from "./layout/footer/footer.component";
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     CommonModule,
     ToastModule,
+    FooterComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
