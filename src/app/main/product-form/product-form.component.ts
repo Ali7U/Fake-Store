@@ -89,6 +89,8 @@ export class ProductFormComponent implements OnInit, OnChanges {
         images: this.getProductForm?.images || [],
       });
 
+      this.imagesArray.clear();
+
       this.getProductForm?.images.forEach((image) => {
         this.imagesArray.push(
           new FormControl(image, [
