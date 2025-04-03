@@ -36,7 +36,7 @@ import { NgStyle } from '@angular/common';
     ButtonModule,
     InputTextModule,
     ToastModule,
-    NgStyle
+    NgStyle,
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss',
@@ -54,7 +54,10 @@ export class ProductFormComponent implements OnInit, OnChanges {
       Validators.required,
       Validators.minLength(3),
     ]),
-    price: new FormControl(this.getProductForm?.price, [Validators.required]),
+    price: new FormControl(this.getProductForm?.price, [
+      Validators.required,
+      Validators.pattern(/^[1-9][0-9]*(\.[0-9]{1,2})?$/),
+    ]),
     description: new FormControl(this.getProductForm?.description, [
       Validators.required,
     ]),
@@ -85,7 +88,6 @@ export class ProductFormComponent implements OnInit, OnChanges {
         categoryId: this.getProductForm?.category?.id || null,
         images: this.getProductForm?.images || [],
       });
-
 
       this.getProductForm?.images.forEach((image) => {
         this.imagesArray.push(

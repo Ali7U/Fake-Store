@@ -92,16 +92,18 @@
 @if (showErrors()) {
 <div class="text-sm text-red-500 pl-3 absolute">
   @if (control.errors?.['required']) {
-  <p>Value is required</p>
+  <p class="m-2">Value is required</p>
   } @if (control.errors?.['email']) {
-  <p>Enter a valid email</p>
-  } @if (control.errors?.['pattern']) { @if (label === 'Avatar Link' || label
+  <p class="m-2">Enter a valid email</p>
+  } @if (control.errors?.['pattern'] && inputType === "number") {
+  <p class="m-2">Invalid price, use numbers only (e.g., 12.50)</p>
+  } @if (control.errors?.['pattern']  && inputType !== "number") { @if (label === 'Avatar Link' || label
   === 'Image') {
-  <p class="text-sm">Enter a valid image URL (png, jpg, etc.)</p>
+  <p class="text-sm m-2">Enter a valid image URL (png, jpg, etc.)</p>
   } @else {
   <p>Invalid format</p>
   } } @if (control.errors?.['minlength']) {
-  <p class="text-sm">
+  <p class="text-sm m-2">
     Value must be at least
     {{ control.errors?.["minlength"].requiredLength }} characters
   </p>
