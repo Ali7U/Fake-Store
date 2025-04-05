@@ -12,6 +12,7 @@ import {
   OnInit,
   Output,
   signal,
+  ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -45,6 +46,7 @@ import { MenuItem } from 'primeng/api';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('menubar') menubar!: Menubar;
   isDarkMode: WritableSignal<boolean> = signal(true);
   signedIn$!: Observable<boolean | null>;
   @Output() setIsDark = new EventEmitter();
@@ -55,6 +57,8 @@ export class NavbarComponent implements OnInit {
   username!: Observable<string>;
 
   categoryVisible = false;
+  isMenuOpen = false;
+  isMobileMenuOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -125,12 +129,41 @@ export class NavbarComponent implements OnInit {
           ],
         },
         {
-          label:'About',
-          route:'/about'
-        }
+          label: 'About',
+          route: '/about',
+        },
       ];
     });
   }
+
+  ngAfterViewInit() {
+    document.addEventListener('click', this.onDocumentClick);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.onDocumentClick);
+  }
+
+  onMenuClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.p-menubar-button')) {
+      this.isMenuOpen = !this.isMenuOpen;
+    }
+  }
+
+
+
+  onDocumentClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    const menubarEl = this.menubar?.el?.nativeElement;
+
+    if (this.isMenuOpen && !menubarEl.contains(target)) {
+      const toggleButton = menubarEl.querySelector('.p-menubar-button');
+      toggleButton?.click(); 
+
+      this.isMenuOpen = false;
+    }
+  };
 
   toggleDarkMode() {
     this.isDarkMode.set(!this.isDarkMode());
