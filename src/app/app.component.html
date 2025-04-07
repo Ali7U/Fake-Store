@@ -1,5 +1,5 @@
-<div class="h-screen flex flex-column justify-content-between">
-  <app-navbar (setIsDark)="handleDarkMode($event)"></app-navbar>
+<app-navbar (setIsDark)="handleDarkMode($event)"></app-navbar>
+<div class="min-h-screen flex flex-column justify-content-between">
   <router-outlet />
   <app-footer></app-footer>
 </div>
