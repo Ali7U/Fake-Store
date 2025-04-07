@@ -90,12 +90,15 @@ export class UserFormComponent implements OnInit, OnChanges {
       );
       this.userForm.addControl(
         'avatar',
-        new FormControl(null, [
-          Validators.required,
-          Validators.pattern(
-            /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/
-          ),
-        ])
+        new FormControl(
+          'https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png',
+          [
+            Validators.required,
+            Validators.pattern(
+              /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/
+            ),
+          ]
+        )
       );
     }
   }
@@ -110,6 +113,10 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   getControl(control: string): FormControl {
+    if (control === 'avatar') {
+      console.log(this.userForm.get('avatar'));
+    }
+
     return this.userForm.get(control) as FormControl;
   }
 

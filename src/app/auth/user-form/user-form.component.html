@@ -1,22 +1,32 @@
 <form
   [formGroup]="userForm"
-  class="w-12 h-screen flex justify-content-center align-items-center"
+  class="w-12 {{
+    isProfile ? 'h-screen' : ''
+  }} flex justify-content-center align-items-center"
   (ngSubmit)="onSubmit()"
 >
-  <div class="flex flex-column w-9 md:w-4 h-30rem justify-content-evenly">
-    @if (!isSignIn) {
+  <div
+    class="flex flex-column w-9 md:w-4 {{
+      isProfile ? 'h-full' : isSignIn ? 'h-20rem' : 'h-25rem'
+    }} justify-content-evenly"
+  >
+    @if (isProfile) {
+    <img
+      [src]="userForm?.controls?.['avatar']?.value"
+      class="border-circle w-6rem h-6rem align-self-center"
+    />
+    } @if (!isSignIn) {
     <app-input
       [control]="getControl('name')"
       inputType="text"
       label="Name"
     ></app-input>
-
-    <app-input
+    @if (isProfile) {<app-input
       [control]="getControl('avatar')"
       inputType="text"
       label="Avatar Link"
     ></app-input
-    >}
+    >} }
 
     <app-input
       [control]="getControl('email')"
@@ -46,7 +56,7 @@
     <a routerLink="/signup" class="no-underline text-color"
       >Doesn't have an account?</a
     >
-    } @else {
+    } @else if(!isProfile) {
     <a routerLink="/signin" class="no-underline text-color"
       >Already have an account?</a
     >
