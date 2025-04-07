@@ -1,4 +1,7 @@
-<app-navbar (setIsDark)="handleDarkMode($event)"></app-navbar>
+<div class="h-screen flex flex-column justify-content-between">
+  <app-navbar (setIsDark)="handleDarkMode($event)"></app-navbar>
+  <router-outlet />
+  <app-footer></app-footer>
+</div>
+
 <p-toast />
-<router-outlet />
-<app-footer></app-footer>
