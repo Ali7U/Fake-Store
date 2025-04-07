@@ -31,7 +31,7 @@
     ></app-input>
     <div class="relalative">
       @if (userForm.errors?.['credentials']) {
-      <p class="pl-3 text-red-500 text-sm">email or password incurrect</p>
+      <p class="pl-3 text-red-500 text-sm absolute">email or password incurrect</p>
       }
     </div>
 
@@ -41,5 +41,6 @@
     } @else {
         <a routerLink="/signin" class="no-underline text-color">Already have an account?</a>
     }
+
   </div>
 </form>

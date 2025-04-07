@@ -19,11 +19,18 @@ import { AuthService } from '../../service/auth.service';
 import { UniqueEmail } from '../validators/unique-email';
 import { login, User } from '../user';
 import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent, ButtonModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    InputComponent,
+    ButtonModule,
+    RouterLink,
+    NgIf,
+  ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
 })
@@ -35,13 +42,11 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Input() isSignIn: boolean = false;
   @Input() userLogin?: login;
   @Input() email = '';
+  @Input() formError: string | null = null;
 
   @Output() userFormSubmit = new EventEmitter();
 
-  constructor(
-    private authService: AuthService,
-    private uniqueEmail: UniqueEmail
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -53,6 +58,22 @@ export class UserFormComponent implements OnInit, OnChanges {
     }
     if (changes['email'] && this.email && this.userForm) {
       this.userForm.patchValue({ email: this.email });
+    }
+
+    if (changes['formError'] && this.userForm) {
+      if (this.formError) {
+        this.userForm.setErrors({ credentials: true });
+      } else {
+        const currentErrors = this.userForm.errors;
+        if (currentErrors && currentErrors['credentials']) {
+          delete currentErrors['credentials'];
+          this.userForm.setErrors(
+            Object.keys(currentErrors).length ? currentErrors : null
+          );
+        }
+      }
+
+      console.log(this.formError);
     }
   }
 

@@ -52,10 +52,6 @@ export class AuthService {
         tap((res) => {
           localStorage.setItem('token', `Bearer ${res.access_token}`);
           this.signedIn$.next(true);
-        }),
-        catchError(() => {
-          this.signedIn$.next(false);
-          return of(null);
         })
       );
   }

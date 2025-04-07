@@ -2,5 +2,7 @@
   buttonName="Sign In"
   [isSignIn]="true"
   [email]="email"
+  [formError]="formError$ | async"
   (userFormSubmit)="onSubmit($event)"
 ></app-user-form>
+
