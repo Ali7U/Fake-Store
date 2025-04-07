@@ -72,7 +72,6 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   private initializeForm(): void {
     this.userForm = new FormGroup({
-      name: new FormControl(null, [Validators.required]),
       email: new FormControl(this.email || null, [
         Validators.required,
         Validators.email,
@@ -82,11 +81,23 @@ export class UserFormComponent implements OnInit, OnChanges {
         Validators.pattern(/^[a-z0-9]+$/),
         Validators.minLength(6),
       ]),
-      avatar: new FormControl(null, [
-        Validators.required,
-        Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/),
-      ]),
     });
+
+    if (!this.isSignIn) {
+      this.userForm.addControl(
+        'name',
+        new FormControl(null, [Validators.required])
+      );
+      this.userForm.addControl(
+        'avatar',
+        new FormControl(null, [
+          Validators.required,
+          Validators.pattern(
+            /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg))$/
+          ),
+        ])
+      );
+    }
   }
 
   private updateForm(user: User): void {

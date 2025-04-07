@@ -47,7 +47,6 @@ export class SigninComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
         localStorage.removeItem('token');
         this.authService.signedIn$.next(false);
         this.formError$.next(null);
