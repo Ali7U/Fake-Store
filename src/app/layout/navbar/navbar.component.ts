@@ -1,12 +1,5 @@
+import { AsyncPipe, NgStyle } from '@angular/common';
 import {
-  AsyncPipe,
-  CommonModule,
-  NgClass,
-  NgIf,
-  NgStyle,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   OnInit,
@@ -19,7 +12,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { AuthService } from '../../service/auth.service';
-import { combineLatest, map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { BadgeModule } from 'primeng/badge';
 import { CartService } from '../../service/cart.service';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
@@ -55,11 +48,12 @@ export class NavbarComponent implements OnInit {
   username!: Observable<string>;
 
   categoryVisible = false;
+  isMenuOpen = false;
+  isMobileMenuOpen = false;
 
   constructor(
     private authService: AuthService,
-    public cartService: CartService,
-    private cdr: ChangeDetectorRef
+    public cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -125,9 +119,9 @@ export class NavbarComponent implements OnInit {
           ],
         },
         {
-          label:'About',
-          route:'/about'
-        }
+          label: 'About',
+          route: '/about',
+        },
       ];
     });
   }

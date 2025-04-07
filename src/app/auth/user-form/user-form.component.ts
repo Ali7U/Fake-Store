@@ -89,7 +89,6 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    if (this.userForm.invalid) return;
     this.userFormSubmit.emit(this.userForm.value);
   }
 }

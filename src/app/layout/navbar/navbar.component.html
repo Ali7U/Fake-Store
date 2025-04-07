@@ -12,11 +12,15 @@
   <div
     class="flex w-6 md:w-8 justify-content-end lg:justify-content-around align-items-center"
   >
-    <p-menubar [model]="items" class="no-wrap-menubar">
+    <p-menubar
+      #menubar
+      [model]="items"
+      class="no-wrap-menubar"
+    >
       <ng-template #item let-item>
         <a [routerLink]="item.route" class="p-menubar-item-link">
           <span class="ml-2">{{ item.label }}</span>
-          <span class=" ml-2 text-xs {{ item.icon }}"></span>
+          <span class="ml-2 text-xs {{ item.icon }}"></span>
         </a>
       </ng-template>
       <div class="flex gap-2">
