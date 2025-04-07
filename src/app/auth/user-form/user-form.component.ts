@@ -19,22 +19,16 @@ import { AuthService } from '../../service/auth.service';
 import { UniqueEmail } from '../validators/unique-email';
 import { login, User } from '../user';
 import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    InputComponent,
-    ButtonModule,
-    RouterLink,
-    NgIf,
-  ],
+  imports: [ReactiveFormsModule, InputComponent, ButtonModule, RouterLink],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
 })
 export class UserFormComponent implements OnInit, OnChanges {
+  private _formError: string | null = null;
   userForm!: FormGroup;
   @Input() getUserForm?: User;
   @Input() buttonName: string = '';
@@ -42,9 +36,24 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Input() isSignIn: boolean = false;
   @Input() userLogin?: login;
   @Input() email = '';
-  @Input() formError: string | null = null;
 
   @Output() userFormSubmit = new EventEmitter();
+
+  @Input()
+  set formError(value: string | null) {
+    this._formError = value;
+
+    if (!this.userForm) return;
+
+    const errors = { ...this.userForm.errors };
+
+    if (value) {
+      this.userForm.setErrors({ ...errors, credentials: true });
+    } else if (errors?.['credentials']) {
+      delete errors['credentials'];
+      this.userForm.setErrors(Object.keys(errors).length ? errors : null);
+    }
+  }
 
   constructor() {}
 
@@ -58,22 +67,6 @@ export class UserFormComponent implements OnInit, OnChanges {
     }
     if (changes['email'] && this.email && this.userForm) {
       this.userForm.patchValue({ email: this.email });
-    }
-
-    if (changes['formError'] && this.userForm) {
-      if (this.formError) {
-        this.userForm.setErrors({ credentials: true });
-      } else {
-        const currentErrors = this.userForm.errors;
-        if (currentErrors && currentErrors['credentials']) {
-          delete currentErrors['credentials'];
-          this.userForm.setErrors(
-            Object.keys(currentErrors).length ? currentErrors : null
-          );
-        }
-      }
-
-      console.log(this.formError);
     }
   }
 
@@ -107,6 +100,10 @@ export class UserFormComponent implements OnInit, OnChanges {
 
   getControl(control: string): FormControl {
     return this.userForm.get(control) as FormControl;
+  }
+
+  get formError(): string | null {
+    return this._formError;
   }
 
   onSubmit() {

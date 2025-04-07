@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { User } from '../user';
-import { InputComponent } from '../../shared/input/input.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { UserFormComponent } from '../user-form/user-form.component';
@@ -41,7 +35,6 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((param) => {
       this.email = param?.['email'];
-      console.log(this.email);
     });
   }
 
@@ -52,14 +45,16 @@ export class SigninComponent implements OnInit {
           this.authService.checkProfile().subscribe(() => {});
           this.router.navigateByUrl('');
         }
-        console.log(res);
-        
       },
       error: (error) => {
         console.log(error);
         localStorage.removeItem('token');
         this.authService.signedIn$.next(false);
-        this.formError$.next('Invalid username or password');
+        this.formError$.next(null);
+
+        setTimeout(() => {
+          this.formError$.next('Invalid username or password');
+        }, 0);
       },
     });
   }

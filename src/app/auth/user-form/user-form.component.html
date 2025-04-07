@@ -19,7 +19,7 @@
     >}
 
     <app-input
-      [control]="getControl('email') "
+      [control]="getControl('email')"
       inputType="email"
       label="Email"
     ></app-input>
@@ -31,16 +31,25 @@
     ></app-input>
     <div class="relalative">
       @if (userForm.errors?.['credentials']) {
-      <p class="pl-3 text-red-500 text-sm absolute">email or password incurrect</p>
+      <p class="pl-3 text-red-500 text-sm absolute">{{ formError }}</p>
       }
     </div>
 
-    <button type="submit" pButton [disabled]="isSignIn? false : userForm.invalid">{{ buttonName }}</button>
+    <button
+      type="submit"
+      pButton
+      [disabled]="isSignIn ? false : userForm.invalid"
+    >
+      {{ buttonName }}
+    </button>
     @if (isSignIn) {
-        <a routerLink="/signup" class="no-underline text-color">Doesn't have an account?</a>
+    <a routerLink="/signup" class="no-underline text-color"
+      >Doesn't have an account?</a
+    >
     } @else {
-        <a routerLink="/signin" class="no-underline text-color">Already have an account?</a>
+    <a routerLink="/signin" class="no-underline text-color"
+      >Already have an account?</a
+    >
     }
-
   </div>
 </form>
