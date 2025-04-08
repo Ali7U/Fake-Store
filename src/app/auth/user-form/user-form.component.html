@@ -10,9 +10,9 @@
       isProfile ? 'h-full' : isSignIn ? 'h-20rem' : 'h-25rem'
     }} justify-content-evenly"
   >
-    @if (isProfile) {
+    @if (isProfile ) {
     <img
-      [src]="userForm?.controls?.['avatar']?.value"
+      [src]="getControl('avatar').value"
       class="border-circle w-6rem h-6rem align-self-center"
     />
     } @if (!isSignIn) {
